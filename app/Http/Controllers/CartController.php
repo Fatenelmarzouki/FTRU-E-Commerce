@@ -10,7 +10,6 @@ use App\Models\Product;
 use App\Models\ProductColor;
 use App\Models\ProductColorSize;
 use App\Models\ProductSize;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller

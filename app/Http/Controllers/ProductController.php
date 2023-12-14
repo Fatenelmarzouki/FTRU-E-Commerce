@@ -6,11 +6,8 @@ use App\Models\Review;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\SubCategory;
-use App\Models\ProductColor;
 use Illuminate\Http\Request;
 use App\Http\Requests\RatingRequest;
-use App\Models\ProductColorSize;
-use App\Models\ProductSize;
 use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller

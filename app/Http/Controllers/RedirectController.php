@@ -46,11 +46,6 @@ class RedirectController extends Controller
     {
         return view('pages.Profile.billing_info');
     }
-    //profile info
-    // public function profile()
-    // {
-    //     return view('pages.Profile.personal_info');
-    // }
     //payment
     public function payment()
     {
@@ -66,4 +61,5 @@ class RedirectController extends Controller
     {
         return view('pages.Forms.otp');
     }
+    
 }

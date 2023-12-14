@@ -3,7 +3,7 @@
 Error
 @endsection
 @section('content')
-    <section class="error">
+    <section class="error_not_found">
         <div class="error_div">
             <div class="img">
                 <img src="{{ asset('img/illast/404 error with person looking for.gif') }}" alt="">
