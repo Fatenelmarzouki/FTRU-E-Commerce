@@ -8,8 +8,8 @@
     <section class="blobs">
         <div class="order">
             <h3>TOTAL ORDERS</h3>
-            <img src="../../../img/dashboard/icons/checkout.png" alt="nobe">
-            <h1>800</h1>
+            <img src="{{ asset('img/dashboard/icons/checkout.png') }}" alt="nobe">
+            <h1>{{ $orders->count() }}</h1>
         </div>
         <div class="text">
             <h1>FTRU TOTAL ORDERS COUNTER</h1>
@@ -27,237 +27,120 @@
         </div>
     </section>
 
-    <section class="new_last">
+<section class="new_last">
         <div class="order_all">
             <div class="right">
                 <h1>ORDERS</h1>
-                <div class="labels">
-                    <h3>ID</h3>
-                    <h3>NAME</h3>
-                    <h3>TOTAL</h3>
-                    <h3>STATUS</h3>
-                    <h3>DATE</h3>
+                <div class="top_labels">
+                    <div class="labels">
+                        <h3>ID</h3>
+                        <h3>NAME</h3>
+                        <h3>TOTAL</h3>
+                        <h3>STATUS</h3>
+                        <h3>DATE</h3>
+                    </div>
+                    @if ($orders->count() > 5)
+                        <div class="labels">
+                            <h3>ID</h3>
+                            <h3>NAME</h3>
+                            <h3>TOTAL</h3>
+                            <h3>STATUS</h3>
+                            <h3>DATE</h3>
+                        </div>
+                    @endif
                 </div>
-                <div class="shipped">
-                    <div class="id">
-                        <p>#18</p>
-                    </div>
-                    <div class="name">
-                        <p>MJKNF SHIRT</p>
-                    </div>
-                    <div class="total">
-                        <p>588.25 $</p>
-                    </div>
-                    <div class="status">
-                        <p>ACTIVE</p>
-                    </div>
-                    <div class="date">
-                        <p>10.12.2023</p>
-                    </div>
-                </div>
-                <div class="order_data">
-                    <div class="id">
-                        <p>#18</p>
-                    </div>
-                    <div class="name">
-                        <p>MJKNF SHIRT</p>
-                    </div>
-                    <div class="total">
-                        <p>588.25 $</p>
-                    </div>
-                    <div class="status">
-                        <p>PROCESSED</p>
-                    </div>
-                    <div class="date">
-                        <p>10.12.2023</p>
-                    </div>
-                </div>
-                <div class="completed">
-                    <div class="id">
-                        <p>#18</p>
-                    </div>
-                    <div class="name">
-                        <p>MJKNF SHIRT</p>
-                    </div>
-                    <div class="total">
-                        <p>588.25 $</p>
-                    </div>
-                    <div class="status">
-                        <p>COMPLETED</p>
-                    </div>
-                    <div class="date">
-                        <p>10.12.2023</p>
-                    </div>
-                </div>
-                <div class="order_data">
-                    <div class="id">
-                        <p>#18</p>
-                    </div>
-                    <div class="name">
-                        <p>MJKNF SHIRT</p>
-                    </div>
-                    <div class="total">
-                        <p>588.25 $</p>
-                    </div>
-                    <div class="status">
-                        <p>ACTIVE</p>
-                    </div>
-                    <div class="date">
-                        <p>10.12.2023</p>
-                    </div>
-                </div>
-                <div class="shipped">
-                    <div class="id">
-                        <p>#18</p>
-                    </div>
-                    <div class="name">
-                        <p>MJKNF SHIRT</p>
-                    </div>
-                    <div class="total">
-                        <p>588.25 $</p>
-                    </div>
-                    <div class="status">
-                        <p>ACTIVE</p>
-                    </div>
-                    <div class="date">
-                        <p>10.12.2023</p>
-                    </div>
-                </div>
-                <div class="order_data">
-                    <div class="id">
-                        <p>#18</p>
-                    </div>
-                    <div class="name">
-                        <p>MJKNF SHIRT</p>
-                    </div>
-                    <div class="total">
-                        <p>588.25 $</p>
-                    </div>
-                    <div class="status">
-                        <p>ACTIVE</p>
-                    </div>
-                    <div class="date">
-                        <p>10.12.2023</p>
-                    </div>
-                </div>
-            </div>
-            <div class="left">
-                <div class="labels">
-                    <h3>ID</h3>
-                    <h3>NAME</h3>
-                    <h3>TOTAL</h3>
-                    <h3>STATUS</h3>
-                    <h3>DATE</h3>
-                </div>
-                <div class="order_data">
-                    <div class="id">
-                        <p>#18</p>
-                    </div>
-                    <div class="name">
-                        <p>MJKNF SHIRT</p>
-                    </div>
-                    <div class="total">
-                        <p>588.25 $</p>
-                    </div>
-                    <div class="status">
-                        <p>ACTIVE</p>
-                    </div>
-                    <div class="date">
-                        <p>10.12.2023</p>
-                    </div>
-                </div>
-                <div class="completed">
-                    <div class="id">
-                        <p>#18</p>
-                    </div>
-                    <div class="name">
-                        <p>MJKNF SHIRT</p>
-                    </div>
-                    <div class="total">
-                        <p>588.25 $</p>
-                    </div>
-                    <div class="status">
-                        <p>ACTIVE</p>
-                    </div>
-                    <div class="date">
-                        <p>10.12.2023</p>
-                    </div>
-                </div>
-                <div class="order_data">
-                    <div class="id">
-                        <p>#18</p>
-                    </div>
-                    <div class="name">
-                        <p>MJKNF SHIRT</p>
-                    </div>
-                    <div class="total">
-                        <p>588.25 $</p>
-                    </div>
-                    <div class="status">
-                        <p>ACTIVE</p>
-                    </div>
-                    <div class="date">
-                        <p>10.12.2023</p>
-                    </div>
-                </div>
-                <div class="order_data">
-                    <div class="id">
-                        <p>#18</p>
-                    </div>
-                    <div class="name">
-                        <p>MJKNF SHIRT</p>
-                    </div>
-                    <div class="total">
-                        <p>588.25 $</p>
-                    </div>
-                    <div class="status">
-                        <p>ACTIVE</p>
-                    </div>
-                    <div class="date">
-                        <p>10.12.2023</p>
-                    </div>
-                </div>
-                <div class="shipped">
-                    <div class="id">
-                        <p>#18</p>
-                    </div>
-                    <div class="name">
-                        <p>MJKNF SHIRT</p>
-                    </div>
-                    <div class="total">
-                        <p>588.25 $</p>
-                    </div>
-                    <div class="status">
-                        <p>SHIPPED</p>
-                    </div>
-                    <div class="date">
-                        <p>10.12.2023</p>
-                    </div>
-                </div>
-                <div class="completed">
-                    <div class="id">
-                        <p>#18</p>
-                    </div>
-                    <div class="name">
-                        <p>MJKNF SHIRT</p>
-                    </div>
-                    <div class="total">
-                        <p>588.25 $</p>
-                    </div>
-                    <div class="status">
-                        <p>ACTIVE</p>
-                    </div>
-                    <div class="date">
-                        <p>10.12.2023</p>
-                    </div>
+                <div class="all_order">
+                    @foreach ($orders as $order)
+                        @if ($order->status == 'Pending')
+                            <a href="{{ route('admin_oneorder',['order_id'=>$order->id]) }}">
+                                <div class="Pending">
+                                    <div class="id">
+                                        <p>{{ '#' . $loop->iteration }}</p>
+                                    </div>
+                                    <div class="name">
+                                        <p>{{ $order->orderUser->name }}</p>
+                                    </div>
+                                    <div class="total">
+                                        <p>{{ $order->total . 'EGP' }}</p>
+                                    </div>
+                                    <div class="status">
+                                        <p>{{ $order->status }}</p>
+                                    </div>
+                                    <div class="date">
+                                        <p>{{ $order->created_at->format('Y-m-d') }}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        @endif
+                        @if ($order->status == 'Processing')
+                            <a href="{{ route('admin_oneorder',['order_id'=>$order->id]) }}">
+                                <div class="Processing">
+                                    <div class="id">
+                                        <p>{{ '#' . $loop->iteration }}</p>
+                                    </div>
+                                    <div class="name">
+                                        <p>{{ $order->orderUser->name }}</p>
+                                    </div>
+                                    <div class="total">
+                                        <p>{{ $order->total . 'EGP' }}</p>
+                                    </div>
+                                    <div class="status">
+                                        <p>{{ $order->status }}</p>
+                                    </div>
+                                    <div class="date">
+                                        <p>{{ $order->created_at->format('Y-m-d') }}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        @endif
+                        @if ($order->status == 'Delivered')
+                            <a href="{{ route('admin_oneorder',['order_id'=>$order->id]) }}">
+                                <div class="Delivered">
+                                    <div class="id">
+                                        <p>{{ '#' . $loop->iteration }}</p>
+                                    </div>
+                                    <div class="name">
+                                        <p>{{ $order->orderUser->name }}</p>
+                                    </div>
+                                    <div class="total">
+                                        <p>{{ $order->total . 'EGP' }}</p>
+                                    </div>
+                                    <div class="status">
+                                        <p>{{ $order->status }}</p>
+                                    </div>
+                                    <div class="date">
+                                        <p>{{ $order->created_at->format('Y-m-d') }}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        @endif
+                        @if ($order->status == 'Shipped')
+                            <a href="{{ route('admin_oneorder',['order_id'=>$order->id]) }}">
+                                <div class="Shipped">
+                                    <div class="id">
+                                        <p>{{ '#' . $loop->iteration }}</p>
+                                    </div>
+                                    <div class="name">
+                                        <p>{{ $order->orderUser->name }}</p>
+                                    </div>
+                                    <div class="total">
+                                        <p>{{ $order->total . 'EGP' }}</p>
+                                    </div>
+                                    <div class="status">
+                                        <p>{{ $order->status }}</p>
+                                    </div>
+                                    <div class="date">
+                                        <p>{{ $order->created_at->format('Y-m-d') }}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        @endif
+                    @endforeach
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="loadmore">
-        <div class="link">
-            <a href="#">LOAD MORE</a>
-        </div>
-    </section>
+        {{ $orders->links('vendor.pagination.custom') }}
+
 @endsection

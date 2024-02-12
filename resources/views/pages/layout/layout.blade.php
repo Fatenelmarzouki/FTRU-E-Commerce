@@ -19,5 +19,6 @@
     @include('pages.includes.footer')
     <script src="{{asset('js/error.js')}}"></script>
     <script src="{{ asset('js/nav.js') }}"></script>
+    <script src="{{ asset('js/search.js') }}"></script>
 </body>
 </html>

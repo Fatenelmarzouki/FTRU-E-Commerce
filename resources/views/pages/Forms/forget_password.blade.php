@@ -3,6 +3,7 @@
 Forget Password
 @endsection
 @section('content')
+@include('pages.includes.session')
     <section class="reg_form">
         <div class="gif_video_forget">
         </div>

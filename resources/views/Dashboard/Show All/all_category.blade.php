@@ -7,7 +7,7 @@
             <div class="category">
                 <h3>TOTAL CATEGORY</h3>
                 <img src="{{ asset('img/dashboard/icons/category.png') }}" alt="nobe">
-                <h1>800</h1>
+                <h1>{{ $category_name->count() }}</h1>
             </div>
             <div class="text">
                 <h1>FTRU TOTAL CATEGORY COUNTER</h1>
@@ -23,10 +23,10 @@
         <section class="all_categories">
             <h1>CATEGORIES</h1>
             <div class="all_cate_blocks">
-                @foreach ($category_name as $category )
-                <div class="cate" onclick="goToAnotherPage()">
+                @foreach ($categories as $category )
+                <div class="cate" >
                     <div class="id_link">
-                        <a href="#">#{{ $category->id }}</a>
+                        <a href="{{ route('Show_one category',['category_id'=>encrypt($category->id) ]) }}">{{ "#".$loop->iteration }}</a>
                     </div>
                     <div class="img_name">
                         <div class="image">
@@ -39,12 +39,12 @@
                     <div class="sub_category">
                         <h3>SUBCATEGORIES</h3>
                         <div class="subcate_links">
-                            @foreach ($category->categorySubcategory as $subcat)
+                            @foreach ($category->categorySubcategory()->limit(4)->get() as $subcat)
                                 @php
                                     $db_allsubname =$subcat->name;
                                     $show_allsubname = str_replace('_', ' ', $db_allsubname)
                                 @endphp
-                            <a href="#">{{ $show_allsubname }}</a>
+                            <a href="{{ route('Show_one subcategory',['category_id'=>encrypt($category->id),'subcategory_id'=>encrypt($subcat->id)]) }}">{{ $show_allsubname }}</a>
                             @endforeach
                         </div>
                     </div>
@@ -54,9 +54,9 @@
                             $productCount = 0;
                         @endphp
                         @foreach ($category->categorySubcategory as $subcat)
-                        @php
-                            $productCount +=$subcat->subcategoryProduct->count();
-                        @endphp
+                            @php
+                                $productCount +=$subcat->subcategoryProduct->count();
+                            @endphp
                         @endforeach
                         <p>{{ $productCount}}<span> Items</span></p>
                     </div>
@@ -64,6 +64,7 @@
                 @endforeach
             </div>
         </section>
+        {{ $categories->links('vendor.pagination.custom') }}
         <section class="add_links">
             <div class="add_cate">
                 <a href="{{ route('add category') }}">ADD CATEGORY</a>
@@ -72,15 +73,4 @@
                 <a href="{{ route('add subcategory') }}">ADD SUBCATEGORY</a>
             </div>
         </section>
-                @foreach ($category_name as $category )
-                @php
-                    $catname=$category->id;
-                @endphp
-                @endforeach
-        <script>
-        function goToAnotherPage() {
-            // Redirect the user to another page
-            window.location.href = "{{ route('one catetegory',['id'=>$catname]) }}";
-        }
-        </script>
 @endsection

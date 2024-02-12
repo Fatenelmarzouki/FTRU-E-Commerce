@@ -4,17 +4,20 @@
     <section class="one_product_bg">
 
     </section>
+
     <section class="product_info" >
         <div class="side_prod">
             <div class="side_imgs">
                 @foreach ($product->productColor as $color)
                     @foreach ($color->colorSize as $item)
-                            @php
+                        @php
                             $img = $item->pivot->image
-                            @endphp
+                        @endphp
+                        @if ($product->image != $img)
                         <div class="img_container">
                             <img src="{{asset("storage/$img")}}" alt="">
                         </div>
+                        @endif
                     @endforeach
                 @endforeach
                     </div>
@@ -27,10 +30,22 @@
                     <div class="name_desc">
                         <h1 >{{$product->name}}</h1>
                     </div>
-                    <div class="price">
-                    <h1>Price</h1>
-                    <p>{{$product->main_price . " $"}}</p>
-            </div>
+                    <div class="price_on_pro">
+                        <h1>Price</h1>
+                        @php
+                            if($product->main_discount != null){
+                                $price=$product->main_price - ($product->main_price *  ($product->main_discount/100));
+                            }else{
+                                $price = $product->main_price;
+                            }
+                        @endphp
+                        <div class="price">
+                            <p>{{$product->main_price . " $"}}</p>
+                        </div>
+                        <div class="price_disc">
+                            <p>{{$price . " $"}}</p>
+                        </div>
+                    </div>
             {{-- Form --}}
             <form class="form_color_price" action="{{ route('add to cart') }}" method="POST">
                 @csrf
@@ -61,19 +76,24 @@
                     <label for="price">Quantity</label>
                     <input class="num" type="number" min="1" name="quantity" id="">
                 </div>
-                {{-- ! added --}}
                 <div class="stock">
-                    @if ($product->productSize[0]->sizeColor[0]->pivot->quantity)
+                    @foreach ($product->productColor as $color)
+                        @foreach ($color->colorSize as $productcs)
+                            @php
+                                $quantity=$productcs->pivot->quantity;
+                            @endphp
+                        @endforeach
+                    @endforeach
+                    @if ($quantity)
                         <p><span class="in_stock">IN STOCK</span></p>
                     @else
                         <p><span class="out_stock">OUT OF STOCK</span></p>
                     @endif
                 </div>
-                {{-- !added --}}
-                @if ($product->productSize[0]->sizeColor[0]->pivot->quantity)
+                @if ($quantity)
                 <button type="submit">ADD TO CART</button>
                 @else
-                <button class="disabled" type="submit">ADD TO CART</button>
+                <button class="disabled" id="disBtn" type="submit">ADD TO CART</button>
                 @endif
             </form>
             <form class="wishlist" action="{{route('add to wishlist')}}" method="post">
@@ -119,4 +139,9 @@
     </section>
     <hr>
     @include('pages.includes.some_hints')
+    <script>
+            document.getElementById('disBtn').addEventListener('click',function(e){
+                e.preventDefault();
+            });
+    </script>
 @endsection

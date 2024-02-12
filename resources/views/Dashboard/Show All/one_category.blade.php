@@ -1,13 +1,11 @@
 @extends('Dashboard.Admin Layout.layout')
-@section('title')
-    Men's Subcategory
-@endsection
+@section('title', $category->name.' '.'Category')
 @section('content')
         <section class="blobs">
             <div class="category">
                 <h3>TOTAL CATEGORY</h3>
                 <img src="{{ asset('img/dashboard/icons/category.png') }}" alt="nobe">
-                <h1>800</h1>
+                <h1>{{ $category_name->count() }}</h1>
             </div>
             <div class="text">
                 <h1>FTRU TOTAL CATEGORY COUNTER</h1>
@@ -21,20 +19,20 @@
             </div>
         </section>
         <section class="all_categories">
-            <h1>MEN CATEGORY</h1>
+            <h1>{{ $category->name." ".'CATEGORY'}}</h1>
             <div class="main_image_cate">
                 <img src="{{ asset('img/dashboard/category_images/man_cate.jpeg') }}" alt="">
             </div>
-            <h1>MEN'S SUBCATEGORY</h1>
+            <h1>{{ $category->name.""."'s Subcategory" }}</h1>
             <div class="all_cate_blocks">
-                @foreach ($category->categorySubcategory as $subcate)
+                @foreach ($categories as $subcate)
                 <div class="cate">
                     <div class="id_link">
-                        <a href="{{route('onesubcate',["id"=>$subcate->id])}}">{{"#".$subcate->id}}</a>
+                        <a href="{{route('Show_one subcategory',['category_id'=>encrypt($category->id),'subcategory_id'=>encrypt($subcate->id)])}}">{{"#".$loop->iteration}}</a>
                     </div>
                     <div class="img_name">
                         <div class="image">
-                            <img src="{{ asset('img/Man/Jackets/Malakhi-jacket_Jackets_673_12.png') }}" alt="" srcset="">
+                            <img src="{{ asset('img/Man/Jackets/Malakhi-jacket_Jackets_673_12.png') }}" alt="Subcategory picture" srcset="">
                         </div>
                         <div class="name">
                             @php
@@ -52,6 +50,7 @@
             @endforeach
             </div>
         </section>
+                {{ $categories->links('vendor.pagination.custom') }}
         <section class="add_links">
             <div class="add_subcate">
                 <a href="{{ route('add subcategory') }}">ADD SUBCATEGORY</a>

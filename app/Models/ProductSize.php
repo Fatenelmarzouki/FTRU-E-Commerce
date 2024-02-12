@@ -21,7 +21,9 @@ class ProductSize extends Model
     }
     public function sizeColor()
     {
-        return $this->belongsToMany(ProductColor::class, 'product_color_sizes', 'product_size_id', 'product_color_id')->withPivot( 'product_size_id','product_color_id', 'quantity','image');
+        return $this->belongsToMany(ProductColor::class, 'product_color_sizes', 'product_size_id', 'product_color_id')
+        ->withPivot( 'id','product_size_id','product_color_id', 'quantity','image')
+        ->orderBy('product_color_id');
     }
 
 }

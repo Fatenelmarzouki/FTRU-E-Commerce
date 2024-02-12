@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('product_size_id')->references('id')->on('product_sizes');
             $table->unsignedBigInteger('product_color_id');
             $table->foreign('product_color_id')->references('id')->on('product_colors');
-            $table->integer('quantity');
+            $table->integer('quantity')->default(1);
             $table->string('image', 255)->nullable();
             $table->timestamps();
         });

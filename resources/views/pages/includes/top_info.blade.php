@@ -4,7 +4,7 @@
                     @if (Auth::user()->image != null)
                     <img src="{{asset("storage")."/".Auth::user()->image}}" alt="">
                     @else
-                    <img src="{{asset("img/profile pic/2.jpg")}}" alt="">
+                    <img src="{{asset('img/dashboard/customer images/user.png')}}" alt="">
                     @endif
                 </div>
                 <div class="name">
@@ -20,7 +20,7 @@
             </div>
             <div class="cart_logout">
                 <div class="your_cart_link">
-                    <a href="{{ route('cart') }}">YOUR CART</a>
+                    <a href="{{ route('cart') }}">MY CART</a>
                 </div>
                 <div class="logout">
                     <a href="{{ route('logout') }}">LOGOUT</a>

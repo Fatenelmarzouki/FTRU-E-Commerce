@@ -3,12 +3,11 @@
     Add SubCategory
 @endsection
 @section('content')
-@include('pages.includes.session')
         <section class="blobs">
             <div class="category">
                 <h3>TOTAL CATEGORY</h3>
                 <img src="{{ asset('img/dashboard/icons/category.png') }}" alt="nobe">
-                <h1>800</h1>
+                <h1>{{ $category_name->count() }}</h1>
             </div>
             <div class="text">
                 <h1>FTRU TOTAL CATEGORY COUNTER</h1>
@@ -29,6 +28,9 @@
                     <div>
                         <label for="">NAME</label>
                         <input name="name" class="input" type="text">
+                        @error('name')
+                            {{ $message }}
+                        @enderror
                     </div>
                     <div>
                         <label for="">MAIN CATEGORY</label>
@@ -37,6 +39,9 @@
                             @foreach ($categories as $category)
                                 <option  value="{{ $category->id }}">{{ $category->name }}</option>
                             @endforeach
+                        @error('category_id')
+                            {{ $message }}
+                        @enderror
                         </select>
                     </div>
                 </div>

@@ -8,25 +8,30 @@ use App\Models\Category;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use App\Http\Requests\RatingRequest;
+use App\Http\Resources\GetAllProductApi;
 use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
-    public function showCate($cate_name)
+    public function showCate($category_name)
     {
-                $category = Category::with("categorySubcategory")->where("name", $cate_name)->first();
-                if($category){
-                    return view('pages.All Products.allproducts', compact('category'));
-                }else{
-                    return redirect()->route('Error')->with('error','Wrong Route');
-                }
+        $category = Category::with("categorySubcategory")->where("name", $category_name)->first();
+        if($category){
+            return view('pages.All Products.allproducts', compact('category'));
+        }else{
+            return redirect()->route('Error')->with('error','Wrong Route');
+        }
     }
-    public function showProduct($category_name, $subcategory_name, $product_id){
+    public function showProduct($category_name, $subcategory_name, $product_id)
+    {
         $category=Category::where("name", $category_name)->first();
         if ($category) {
             $subcategory=SubCategory::where('category_id',$category->id)->where('name',$subcategory_name)->first();
             if ($subcategory) {
-                $product=Product::where('sub_category_id', $subcategory->id)->where('id', $product_id)->first();
+                $product=Product::where('sub_category_id', $subcategory->id)
+                ->where('id', $product_id)
+                ->where('delete_status','No')
+                ->first();
                 if ($product) {
                     return view('pages.One Product.one_product',compact('product'));
                 }else{
@@ -39,12 +44,16 @@ class ProductController extends Controller
             return redirect()->route('Error');
         }
     }
-    public function showSubCategory($category_name, $subcategory_name){
+    public function showSubCategory($category_name, $subcategory_name)
+    {
         $category = Category::where("name", $category_name)->first();
         if ($category) {
             $subcategory = SubCategory::where('category_id', $category->id)->where('name', $subcategory_name)->first();
             if ($subcategory) {
-                    return view('pages.All Products.Subcate_products',compact('subcategory', 'category'));
+                $products= $subcategory->subcategoryProduct()->where('delete_status', 'No')
+                ->where('status','show')
+                ->paginate(8);
+                return view('pages.All Products.Subcate_products',compact('subcategory', 'category', 'products'));
             }else{
                 return redirect()->route('Error');
             }
@@ -52,23 +61,8 @@ class ProductController extends Controller
             return redirect()->route('Error');
         }
     }
-    public function search(Request $request)
+    public function rateProduct(RatingRequest $request)
     {
-        $query = $request->input('query');
-
-        $products = Product::where('name', 'like', "%$query%")->get();
-
-        return view('pages.All Products.search', compact('products'));
-    }
-    public function showSearchProduct($product_id){
-        $product=Product::findOrFail(decrypt($product_id));
-        if ($product) {
-            return view('pages.One Product.one_product',compact('product'));
-        }else{
-            return redirect()->route('Error');
-        }
-    }
-    public function rateProduct(RatingRequest $request){
         $user=Auth::user();
         if($user){
             $product = Product::findOrFail(decrypt($request->product_id));
@@ -91,6 +85,26 @@ class ProductController extends Controller
         }else{
             return redirect()->route('Login')->with('error', 'You Must Login First');
         }
-
+    }
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $products = Product::where('name', 'LIKE', '%' . str_replace(' ', '%', $query) . '%')
+        ->where('delete_status','No')
+        ->get();
+        return view('pages.All Products.search', compact('products'));
+    }
+    public function showSearchProduct($product_id)
+    {
+        $product=Product::findOrFail(decrypt($product_id));
+        if ($product) {
+            return view('pages.One Product.one_product',compact('product'));
+        }else{
+            return redirect()->route('Error');
+        }
+    }
+    public function productSearchApi(){
+        $products = Product::all('name');
+        return GetAllProductApi::collection($products);
     }
 }

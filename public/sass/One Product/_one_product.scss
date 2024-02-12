@@ -41,10 +41,8 @@
             height: $product_container_inner_height;
             margin-bottom: 50px;
             background-image: url("../img/Blob/first_pro_bg.svg");
-            // ! added
             background-size: cover;
             background-repeat: no-repeat;
-            // !end
             img{
                 width: 100%;
             }
@@ -89,17 +87,30 @@
             // color: #bf3b3b;
             margin-bottom: 20px;
         }
-        .price{
-            h1{
-                font-size: 40px;
-                display: inline-block;
-                margin-right: 15px;
-            }
-            p{
-                display: inline-block;
+    .price_on_pro {
+        display: flex;
+        justify-content: flex-start;
+        align-items: baseline;
+        margin-top: 10px;
+        gap: 20px;
+        h1 {
+            font-size: 40px;
+            display: inline-block;
+        }
+        .price {
+            p {
                 font-size: 25px;
+                color: rgba($color: #bf623b, $alpha: 0.7);
+                text-decoration: line-through;
             }
         }
+        .price_disc {
+            p {
+                font-size: 25px;
+                color: rgba($color: #548686, $alpha: 0.7);
+            }
+        }
+    }
         .form_color_price{
             label{
                 font-size: 40px;

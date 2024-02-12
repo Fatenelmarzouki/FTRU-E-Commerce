@@ -22,9 +22,9 @@ class EditCartRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "quantity" => "max:4|nullable",
-            "color" => "nullable",
-            "size" => "nullable"
+            "quantity" => 'required|max:4',
+            "color" =>'required',
+            "size" => 'required'
         ];
     }
 }

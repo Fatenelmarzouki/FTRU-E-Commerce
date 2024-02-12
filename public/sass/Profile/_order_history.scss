@@ -265,9 +265,83 @@
                 }
             }
         }
+                .before {
+                    position: relative;
+
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        top: 0;
+                        bottom: 0;
+                        right: 0;
+                        left: 0;
+                        background-color: rgba(63, 64, 69, 0.3);
+                        border-radius: 25px;
+                        backdrop-filter: blur(3px);
+                    }
+
+                    &::after {
+                        content: "Unavailable Anymore";
+                        color: #e2574c;
+                        font-size: 50px;
+                        position: absolute;
+                        top: 35%;
+                        bottom: 0;
+                        right: 0;
+                        left: 70px;
+                    }
+                }
     }
 }
+// ! added
+.btn_contant {
+    width: 100%;
 
+    .align_btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 50px;
+
+        // width: fit-content;
+        // margin: auto;
+        .order_all {
+            .disabled {
+                cursor: not-allowed;
+                color: rgba($color: #3f4045, $alpha: 0.3);
+                filter: opacity(0.5);
+
+                &:hover {
+                    color: rgba($color: #3f4045, $alpha: 0.3);
+                    text-shadow: none;
+                }
+            }
+
+            button {
+                color: #3f4045;
+                font-size: 34px;
+                width: 145px;
+                display: block;
+                margin: auto;
+                margin-top: 40px;
+                border: none;
+                background-color: transparent;
+                background-image: url("../img/Blob/add_to_cart.svg");
+                background-repeat: no-repeat;
+                background-size: cover;
+                height: 122px;
+                transition-duration: 0.3s;
+                cursor: pointer;
+
+                &:hover {
+                    color: #e9e8de;
+                    text-shadow: 2px 2px 4px #e9e8de;
+                }
+            }
+        }
+    }
+}
+// ! added
 @media screen and (min-width: 768px) {
     .contant_info_order{
         flex-direction: row;

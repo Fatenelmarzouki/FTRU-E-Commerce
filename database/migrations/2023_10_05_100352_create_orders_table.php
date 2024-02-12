@@ -14,17 +14,19 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->string("order_code");
+            $table->string("email");
+            $table->string("phone");
             $table->decimal('sub_total', 8, 2);
             $table->integer('discount');
             $table->integer('tax');
             $table->decimal('shipping',8,2);
             $table->decimal('total', 8, 2);
             $table->integer('quantity');
-            $table->enum("status", ['pending', 'processing', 'shipped', 'delivered'])->default("pending");
+            $table->enum("status", ['Pending', 'Processing', 'Shipped', 'Delivered'])->default("Pending");
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->unsignedBigInteger('cart_id');
-            $table->foreign('cart_id')->references('id')->on('carts');
+            $table->unsignedBigInteger('address_id');
+            $table->foreign('address_id')->references('id')->on('addresses');
             $table->timestamps();
         });
     }

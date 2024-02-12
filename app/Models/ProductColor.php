@@ -17,9 +17,11 @@ class ProductColor extends Model
     ];
     public function colorProduct()
     {
-        return $this->belongsTo(Product::class);
-    } 
+        return $this->belongsTo(Product::class,'product_id','id');
+    }
     public function colorSize(){
-        return $this->belongsToMany(ProductSize::class, 'product_color_sizes', 'product_color_id', 'product_size_id')->withPivot( 'product_size_id','product_color_id', 'quantity','image');
+        return $this->belongsToMany(ProductSize::class, 'product_color_sizes', 'product_color_id', 'product_size_id')
+        ->withPivot( 'id','product_size_id','product_color_id', 'quantity','image')
+        ->orderBy('product_color_id');
     }
 }

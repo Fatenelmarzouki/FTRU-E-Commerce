@@ -24,10 +24,13 @@ class Address extends Model
     public function addressUser()
     {
         return $this->belongsTo(User::class);
-    }    
+    }
     public function addressCountry()
     {
-        return $this->belongsTo(Country::class);
+        return $this->belongsTo(Country::class,'country_id');
     }
-    
+    public function addressOrder(){
+        return $this->belongsTo(Order::class);
+    }
+
 }

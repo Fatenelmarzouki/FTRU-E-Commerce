@@ -18,16 +18,28 @@
             <li><a href="{{ route('Kids') }}">KIDS</a></li>
             <li><a href="{{ route('Accessories') }}">ACCESSORIES</a></li>
             <li><a href="{{ route('Bags') }}">BAGS</a></li> --}}
-        @auth
-        <li><a href="{{ route('cart') }}"><img src="{{asset("img/Stars/shopping-cart.png")}}" alt="" srcset=""></a></li>
-        <li><a href="{{ route('profile info') }}"><img src="{{asset("img/Stars/user (1).png")}}" alt=""></a></li>
+        @php
+                $user=Auth::user();
+        @endphp
+        @if ($user)
+            @if ($user->user_type == 1)
+                <li><a href="{{ route('profile info') }}"><img src="{{asset("img/Stars/user (1).png")}}" alt=""></a></li>
+                <li><a href="{{ route('cart') }}"><img src="{{asset("img/Stars/shopping-cart.png")}}" alt="" srcset=""></a></li>
+            @else
+                <div class="register" style="margin-top: 12px">
+                    <a href="{{ route('Register') }}">Register</a>
+                </div>
+                <div class="login" style="margin-top: 12px">
+                    <a href="{{ route('Login') }}">Login</a>
+                </div>
+            @endif
         @else
-        <div class="register" style="margin-top: 12px">
-            <a href="{{ route('Register') }}">Register</a>
-        </div>
-        <div class="login" style="margin-top: 12px">
-            <a href="{{ route('Login') }}">Login</a>
-        </div>
-        @endauth
+            <div class="register" style="margin-top: 12px">
+                <a href="{{ route('Register') }}">Register</a>
+            </div>
+            <div class="login" style="margin-top: 12px">
+                <a href="{{ route('Login') }}">Login</a>
+            </div>
+        @endif
         </ul>
     </nav>

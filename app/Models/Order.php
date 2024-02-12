@@ -11,6 +11,8 @@ class Order extends Model
     protected $fillable = [
         'id',
         'order_code',
+        'email',
+        'phone',
         'sub_total',
         'discount',
         'tax',
@@ -19,16 +21,24 @@ class Order extends Model
         'quantity',
         'status',
         'user_id',
-        'cart_id',
+        'address_id',
         'created_at',
         'updated_at'
     ];
     public function orderUser()
     {
-        return $this->belongsTo(User::class);
-    }    
-    public function orderCart()
+        return $this->belongsTo(User::class,'user_id');
+    }
+    public function orderAddress(){
+        return $this->hasOne(Address::class,'id','address_id');
+    }
+    public function orderProductCS()
     {
-        return $this->belongsTo(Cart::class);
-    } 
+        return $this->belongsToMany(ProductColorSize::class, 'order_details', 'order_id', 'product_color_size_id')
+        ->withPivot('order_id', 'product_color_size_id');
+    }
+    public function OrderOrderDetails()
+    {
+        return $this->hasMany(OrderDetail::class, 'order_id', 'id');
+    }
 }

@@ -3,17 +3,18 @@
     Your Search Results
 @endsection
 @section('content')
-    @include('pages.includes.session')
 
     <section class="section_search">
-        <form action="{{ route('search') }}" method="GET">
+        <form action="{{ route('search') }}" method="GET" id="submit_search">
             <div class="search-container">
                 <input type="text" id="search" placeholder="Search" name="query">
                 <button type="submit"><img src="{{asset('img/Stars/search green.png')}}" alt=""></button>
             </div>
+            <div class="sugg_container">
+            </div>
         </form>
     </section>
-
+    @include('pages.includes.session')
     <section class="man_product">
         <div class="title">
             <div>
@@ -36,7 +37,7 @@
                     <a href="{{ route('show product of search',['product_id'=>encrypt($product->id)]) }}">
                         <div class="inner_bg">
                             <div class="rate_number">
-                                @if ($product->productReview->rating_value)
+                                @if ($product->productReview->avg('rating_value'))
                                 <img src="{{ asset('img/Stars/star.png') }}" alt="Ward" srcset="">
                                 <p>{{ $product->productReview->avg('rating_value') }}</p>
                                 @endif

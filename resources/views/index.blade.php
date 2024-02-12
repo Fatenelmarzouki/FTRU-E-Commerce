@@ -1,3 +1,8 @@
+{{-- @php
+    $visit=DB::table('visitors')->first();
+@endphp
+{{ $visit->count}} --}}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,13 +27,25 @@
             <img src="{{asset("img/Blob/logo2.svg")}}" alt="">
         </div>
     <ul class="nav-links">
-            @auth
-                <div class="cart">
-                    <a href="{{route('cart')}}"><img src="{{asset("img/Stars/shopping-cart.png")}}" alt="" srcset=""></a>
-                </div>
-                <div class="profile">
-                    <a href="{{route('profile info')}}"><img src="{{asset("img/Stars/user (1).png")}}" alt=""></a>
-                </div>
+            @php
+                $user=Auth::user();
+            @endphp
+            @if ($user)
+                @if ($user->user_type == 1)
+                    <div class="cart">
+                        <a href="{{route('cart')}}"><img src="{{asset("img/Stars/shopping-cart.png")}}" alt="" srcset=""></a>
+                    </div>
+                    <div class="profile">
+                        <a href="{{route('profile info')}}"><img src="{{asset("img/Stars/user (1).png")}}" alt=""></a>
+                    </div>
+                @else
+                    <div class="register" style="margin-top: 12px ">
+                        <a href="{{route('Register')}}">Register</a>
+                    </div>
+                    <div class="login" style="margin-top: 12px">
+                        <a href="{{route('Login')}}">Login</a>
+                    </div>
+                @endif
             @else
                 <div class="register" style="margin-top: 12px ">
                     <a href="{{route('Register')}}">Register</a>
@@ -36,7 +53,7 @@
                 <div class="login" style="margin-top: 12px">
                     <a href="{{route('Login')}}">Login</a>
                 </div>
-            @endauth
+            @endif
         </ul>
 
     </header>

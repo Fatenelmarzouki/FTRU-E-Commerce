@@ -27,7 +27,10 @@
                 <div class="label_inputs">
                     <div>
                         <label for="">NAME</label>
-                        <input name="name" class="input" type="text">
+                        <input name="name" class="input" type="text" >
+                        @error('name')
+                            {{ $message }}
+                        @enderror
                     </div>
                 </div>
                 <button class="submit" type="submit">SUBMIT</button>

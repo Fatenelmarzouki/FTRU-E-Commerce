@@ -3,6 +3,7 @@
 Edit Personal Info
 @endsection
 @section('content')
+@include('pages.includes.session')
     <section class="reg_form">
         <div class="containt">
             <h1 class="reg">Edit Personal Info</h1>
@@ -13,7 +14,7 @@ Edit Personal Info
                     @if (Auth::user()->image != null)
                     <img src="{{asset("storage")."/".Auth::user()->image}}" alt="User Image">
                     @else
-                    <img src="{{asset("img/profile pic/2")}}" alt="Profile Image">
+                    <img src="{{asset('img/dashboard/customer images/user.png')}}" alt="Profile Image">
                     @endif
                     <input class="upload" type="file" name="image" accept="image/*">
                 </div>

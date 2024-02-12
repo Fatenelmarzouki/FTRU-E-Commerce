@@ -18,7 +18,7 @@ class WishlistController extends Controller
     {
         $user = Auth::user();
         if ($user) {
-            $product = Product::findOrFail($request->product_id);
+            $product = Product::where('id', $request->product_id)->where('delete_status','No')->first();
             if ($product) {
                 $check = Wishlist::where('product_id', $product->id)->first();
                 if ($check) {
@@ -45,6 +45,7 @@ class WishlistController extends Controller
             if ($user_wishlist) {
                 return view('pages.Profile.wishlist', compact('user_wishlist'));
             } else {
+                //check the message of error
                 return redirect()->back()->with("error", "You Don't have any product in your cart yet");
             }
         } else {
@@ -66,11 +67,27 @@ class WishlistController extends Controller
             return redirect()->route('Login')->with('error', 'You Must Login First');
         }
     }
+    public function deleteAllFromWishlist(){
+        $user=Auth::user();
+        if($user){
+            if($user->user_type == 1){
+                $wishlist_items=Wishlist::where('user_id',$user->id)->get();
+                foreach($wishlist_items as $item){
+                    $item->delete();
+                }
+                return redirect()->route('wishlist')->with('success', "You delete all products from your wishlist");
+            }else{
+                return redirect()->route('Register')->with('error', "Create your Account First");
+            }
+        } else {
+            return redirect()->route('Login')->with('error', 'You Must Login First');
+        }
+    }
     public function moveToCart(Request $request)
     {
         $user = Auth::user();
         if ($user) {
-            $product = Product::findOrFail(decrypt($request->product_id));
+            $product = Product::where('id',decrypt($request->product_id))->where('delete_status','No')->first();
             if ($product) {
                 $user_cart = Cart::where("user_id", $user->id)->first();
                 $user_cart_id = null;
@@ -114,60 +131,6 @@ class WishlistController extends Controller
             return redirect()->route('Login')->with('error', 'You Must Login First');
         }
     }
-    // public function addAllToCartFromWishlist(Request $request)
-    // {
-    //     $user = Auth::user();
-    //     if ($user) {
-    //             $wishlistItems = Wishlist::where('user_id', $user->id)->get();
-    //             if($wishlistItems){
-    //                 foreach($wishlistItems as $item){
-    //                     $product=Product::where('id',$item->id)->first();
-    //                 if($product){
-    //                     $user_cart = Cart::where("user_id", $user->id)->first();
-    //                     $user_cart_id = null;
-    //                     if ($user_cart) {
-    //                         $user_cart_id = $user_cart->id;
-    //                     } else {
-    //                         $cart = Cart::create([
-    //                             "user_id" => $user->id,
-    //                         ]);
-    //                         $user_cart_id = $cart->id;
-    //                     }
-    //                     $color = ProductColor::where("product_id", $product->id)->first();
-    //                     $size = ProductSize::where("product_id", $product->id)->first();
-    //                     $productSC = ProductColorSize::where('product_color_id', $color->id)->where('product_size_id', $size->id)->first();
-    //                     if ($productSC) {
-    //                         if ( $productSC->quantity == 0) {
-    //                             continue;
-    //                     }else{
-    //                             $check = CartItem::where('product_color_size_id', $productSC->id)->first();
-    //                             if ($check) {
-    //                                 return redirect()->back()->with('error', 'This product is already exist in your cart');
-    //                             } else {
-    //                                 $cart_item = CartItem::create([
-    //                                     'quantity' => 1,
-    //                                     'price' => $product->main_price,
-    //                                     'cart_id' => $user_cart_id,
-    //                                     'product_color_size_id' => $productSC->id
-    //                                 ]);
-    //                                 $wishlistItems->delete();
-    //                                 return redirect()->back();
-    //                             }
-    //                     }
-    //                     }else {
-    //                         return redirect()->back()->with('error', "Product not Found");
-    //                     }
-    //                 }else{
-    //                         return redirect()->back()->with('error', "Product not here");
-    //                     }
-    //                 }
-    //         }else{
-    //                 return redirect()->back()->with('error', "No Data Here");
-    //         }
-    //     }else {
-    //         return redirect()->route('Login')->with('error', 'You Must Login First');
-    //     }
-    // }
     public function addAllToCartFromWishlist()
     {
         $user = Auth::user();
@@ -175,7 +138,7 @@ class WishlistController extends Controller
             $wishlistItems = Wishlist::where('user_id', $user->id)->get();
             if ($wishlistItems) {
                 foreach ($wishlistItems as $item) {
-                    $product = Product::where("id", $item->product_id)->first();
+                    $product = Product::where("id", $item->product_id)->where('delete_status','No')->first();
                     if ($product) {
                         $user_cart = Cart::where("user_id", $user->id)->first();
                         $user_cart_id = null;
@@ -216,18 +179,19 @@ class WishlistController extends Controller
                                 }
                             }
                         } else {
-                            return redirect()->back()->with("error", "this product not found");
+                            return redirect()->back()->with("error", "This Product Not Found");
                         }
                     } else {
-                        return redirect()->back()->with("error", "product not here");
+                        return redirect()->back()->with("error", "Product Not Here");
                     }
                 }
                 return redirect()->back()->with("success", "All Products added sussefully");
             } else {
-                return redirect()->back()->with("error", "no data here");
+                return redirect()->back()->with("error", "No Data Here");
             }
         } else {
-            return redirect()->route('Login')->with("error", "you must login first");
+            return redirect()->route('Login')->with("error", "You Must Login First");
         }
     }
+
 }

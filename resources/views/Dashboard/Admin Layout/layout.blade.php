@@ -13,8 +13,13 @@
     <body class="body">
         @include('Dashboard.Admin includes.header')
         @yield('content')
+        @include('Dashboard.includes.session')
         @include('Dashboard.Admin includes.footer')
+        @include('Dashboard.Admin includes.search')
         <script src="{{asset('js/error.js')}}"></script>
         <script src={{asset("js/dashboardActive.js")}}></script>
+        <script src={{asset('js/dashboardShowAllCate.js')}}></script>
+        <script src={{asset("js/pagination.js")}}></script>
+        <script src="{{asset("js/showAdminSearch.js")}}"></script>
     </body>
 </html>

@@ -42,7 +42,7 @@ class User extends Authenticatable
     }
     //one(user) to many(order)
     public function userOrder(){
-        return $this->hasMany(Order::class, 'user_id');
+        return $this->hasMany(Order::class, 'user_id','id');
     }
     //one(user) to many(review)
     public function userReview(){

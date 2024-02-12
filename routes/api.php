@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,3 +26,5 @@ Route::post("insert_product", [ApiController::class, "insertProduct"]);
 Route::post("insert_color/{cat_id}/{subcat_id}/{pro_id}", [ApiController::class, "insertcolor"]);
 
 Route::get('update/{id}',[ApiController::class, 'updateMakeup']);
+//for search
+Route::get('productname',[ProductController::class, 'productSearchApi']);

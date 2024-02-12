@@ -3,6 +3,7 @@
 Reset Password
 @endsection
 @section('content')
+@include('pages.includes.session')
     <section class="reg_form">
         <div class="containt">
             <h1 class="reg">Reset Your Password</h1>

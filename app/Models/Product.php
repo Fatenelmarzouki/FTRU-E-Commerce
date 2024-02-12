@@ -11,12 +11,12 @@ class Product extends Model
     protected $fillable = [
         'id',
         'name',
-        'description',
         'main_price',
         'main_discount',
         'product_code',
         'image',
         'status',
+        'delete_status',
         'sub_category_id',
         'created_at',
         'updated_at'
@@ -35,10 +35,10 @@ class Product extends Model
     }
     public function productWishlist()
     {
-        return $this->belongsToMany(User::class, 'wishlists', 'user_id', 'product_id')->withPivot('user_id', 'product_id');
+        return $this->belongsToMany(User::class, 'wishlists', 'product_id', 'user_id')->withPivot('id','user_id', 'product_id');
     }
     public function productReview()
     {
-        return $this->hasMany(Review::class);
+        return $this->hasMany(Review::class,'product_id','id');
     }
 }

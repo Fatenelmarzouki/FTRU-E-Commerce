@@ -4,10 +4,13 @@
     <section class="{{$category->name}}">
     </section>
     <section class="section_search">
-        <form action="{{ route('search') }}" method="GET">
+        <form action="{{ route('search') }}" method="GET" id="submit_search">
+            @csrf
             <div class="search-container">
                 <input type="text" id="search" placeholder="Search" name="query">
                 <button type="submit"><img src="{{asset('img/Stars/search green.png')}}" alt=""></button>
+            </div>
+            <div class="sugg_container">
             </div>
         </form>
     </section>
@@ -31,7 +34,7 @@
             </div>
         </div>
         @foreach ($category->categorySubcategory as $subcat )
-            @foreach ($subcat->subcategoryProduct()->inRandomOrder()->take(4)->get() as $product)
+            @foreach ($subcat->subcategoryProduct()->inRandomOrder()->take(2)->where('status','show')->get() as $product)
                 <div class="first_product">
                     <a href="{{ route('show one product',['category_name'=>$category->name,'subcategory_name'=>$subcat->name,'product_id'=>$product->id]) }}">
                         <div class="inner_bg">
@@ -76,6 +79,7 @@
             @endforeach
         @endforeach
     </section>
+
     <hr>
     <section class="man_product">
             <div class="title">
@@ -84,7 +88,7 @@
                 </div>
             </div>
         @foreach ($category->categorySubcategory as $subcat)
-            @foreach ($subcat->subcategoryProduct()->latest("created_at")->take(1)->get() as $product)
+            @foreach ($subcat->subcategoryProduct()->latest("created_at")->take(1)->where('status','show')->get() as $product)
                 <div class="first_product">
                     <a href="#">
                         <div class="inner_bg">
@@ -129,6 +133,7 @@
             @endforeach
         @endforeach
     </section>
+
     <hr>
     @include('pages.includes.some_hints')
 @endsection

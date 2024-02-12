@@ -22,10 +22,6 @@
                     @foreach ($category_name as $item)
                         <a href="{{route('show category',["category_name"=>$item->name]) }}">{{ $item->name }}</a>
                     @endforeach
-                    {{-- <a href="{{ route('Women') }}">WOMAN</a>
-                    <a href="{{ route('Kids') }}">KIDS</a>
-                    <a href="{{ route('Accessories') }}">ACCESSORIES</a>
-                    <a href="{{ route('Bags') }}">BAGS</a> --}}
                 </div>
             </div>
         </div>
@@ -34,13 +30,16 @@
                 <h1>CONTACT US</h1>
             </div>
             <div class="email_phone">
+                @php
+                    $admin=DB::table('users')->where('user_type','0')->first();
+                @endphp
                 <div class="email">
                     <h1>EMAIL</h1>
-                    <P>exampleegy@gmail.com</P>
+                    <P>{{ $admin->email }}</P>
                 </div>
                 <div class="phone">
                     <h1>PHONE</h1>
-                    <P>01457857896</P>
+                    <P>{{ $admin->phone }}</P>
                 </div>
                 <div class="links">
                     <a href="#"><img src="{{ asset('img/Socail/facebook.png') }}" alt="not here"></a>

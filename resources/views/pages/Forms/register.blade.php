@@ -3,19 +3,23 @@
 Register
 @endsection
 @section('content')
+@include('pages.includes.session')
     <section class="reg_form">
         <div class="containt">
             <h1 class="reg">Register</h1>
+            @if (session()->has("error"))
+            <h1 class="info_title" style="color: #bf3b3b">{{session()->get("error")}} </h1>
+            @endif
             <form action="{{ route('handle_register') }}" method="POST">
                 @csrf
                 <label class="reg_label" for="">Name</label>
-                <input  class="reg_inputs_one" type="text" name="name">
+                <input  class="reg_inputs_one" type="text" name="name" value="{{ old('name') }}">
                 @error('name')
                     {{ $message }}
                 @enderror
                 <br>
                 <label class="reg_label" for="">Email</label>
-                <input  class="reg_inputs_five" type="email" name="email">
+                <input  class="reg_inputs_five" type="email" name="email" value="{{ old('email') }}">
                 @error('email')
                     {{ $message }}
                 @enderror
@@ -31,7 +35,7 @@ Register
                 @enderror
                 <br>
                 <label class="reg_label" for="">Phone</label>
-                <input  class="reg_inputs_six" type="text" name="phone">
+                <input  class="reg_inputs_six" type="text" name="phone" value="{{ old('phone') }}">
                 @error('phone')
                     {{ $message }}
                 @enderror
@@ -48,7 +52,7 @@ Register
                 @enderror
                 <br>
                 <label class="reg_label" for="">Address</label>
-                <input class="reg_inputs_two" type="text" name="address">
+                <input class="reg_inputs_two" type="text" name="address" value="{{ old('address') }}">
                 @error('address')
                     {{ $message }}
                 @enderror

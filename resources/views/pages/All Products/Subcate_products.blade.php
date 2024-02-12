@@ -8,10 +8,12 @@
     <section class="{{$category->name . "_" .$subcategory->name}}">
     </section>
     <section class="section_search">
-        <form action="{{ route('search') }}" method="GET">
+        <form action="{{ route('search') }}" method="GET" id="submit_search">
             <div class="search-container">
                 <input type="text" id="search" placeholder="Search" name="query">
                 <button type="submit"><img src="{{asset('img/Stars/search green.png')}}" alt=""></button>
+            </div>
+            <div class="sugg_container">
             </div>
         </form>
     </section>
@@ -35,7 +37,8 @@
                 </div>
             </div>
         </div>
-        @foreach ($subcategory->subcategoryProduct as $product)
+        @if ($products->isNotEmpty())
+        @foreach ($products as $product)
         <div class="first_product">
             <a href="{{ route('show one product',['category_name'=>$category->name,'subcategory_name'=>$subcategory->name,'product_id'=>$product->id]) }}">
                 <div class="inner_bg">
@@ -79,7 +82,15 @@
             </a>
         </div>
         @endforeach
+        @else
+        <div class="no_products">
+            <div class="text_container">
+                <h1>there are no product in this category yet !</h1>
+            </div>
+        </div>
+        @endif
     </section>
+        {{ $products->links('vendor.pagination.user_custom') }}
     <hr>
     @include('pages.includes.some_hints')
 @endsection

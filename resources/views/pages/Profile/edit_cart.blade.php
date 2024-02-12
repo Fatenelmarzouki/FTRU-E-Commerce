@@ -27,7 +27,7 @@
                             <label for="color">Color</label>
                             @foreach ($product->productColor as $color)
                                 @if ($color->color == "MultI")
-                                    <p>multiple color</p>
+                                    <p>Multiple color</p>
                                     <input type="hidden" name="color" value="{{$color->color}}">
                                 @else
                                     <input type="radio" name="color" class="pick_one" value="{{$color->color}}" style="background-color: {{$color->color}}">

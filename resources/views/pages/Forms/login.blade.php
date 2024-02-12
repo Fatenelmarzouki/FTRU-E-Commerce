@@ -7,14 +7,13 @@ Login
         <div class="gif_video_login">
         </div>
         <div class="containt">
-            @if (session()->has('success'))
-                {{session('success')}}
-            @endif
-
-            @if($errors->has('msg'))
-                {{ $errors->first('msg') }}
-            @endif
             <h1 class="reg">Login</h1>
+                @if($errors->has('msg'))
+                    {{ $errors->first('msg') }}
+                @endif
+                @if (session()->has("error"))
+                    <h1 class="info_title" style="color: #bf3b3b">{{session()->get("error")}} </h1>
+                @endif
             <form action="{{ route('login handle') }}" method="POST">
                 @csrf
                 <label class="reg_label" for="">Email</label>
@@ -29,16 +28,6 @@ Login
                 {{ $message }}
                 @enderror
                 <br>
-                {{-- <div class="forget_pass">
-                    <div>
-                        <a href="{{ route('Forget password') }}">Forget Password?</a>
-                    </div>
-                    <div>
-                        <input class="check_box_btn" type="checkbox" name="remember" id="">
-                        <label for="check">Remember Me</label>
-                    </div>
-                </div> --}}
-                {{-- added --}}
                 <div class="forget_pass">
                     <div>
                         <a href="{{route('Forget password')}}">Forget Password?</a>

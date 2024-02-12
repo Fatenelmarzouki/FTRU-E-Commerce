@@ -7,7 +7,7 @@ YOUR WISHLIST
         @include('pages.includes.top_info')
         <section class="next_container">
             @include('pages.includes.session')
-            <h1 class="info_title">YOUR WISHLIST</h1>
+            <h1 class="info_title">MY WISHLIST</h1>
             @if ($user_wishlist->isEmpty())
                 <div class="order_history_list_not">
                     <div class="img">
@@ -47,12 +47,26 @@ YOUR WISHLIST
                 </div>
             @endforeach
             @endif
+            @if ($user_wishlist->isNotEmpty())
+            <div class="btn_contant">
+                <div class="align_btn">
+                    <div class="order_all">
+                        <form action="{{ route('move all to cart') }}" method="GET">
+                            @csrf
+                            <button type="submit">ADD ALL TO CART</button>
+                        </form>
+                    </div>
+                    <div class="order_all">
+                        <form action="{{ route('remove all from wishlist') }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit">Delete All</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            @endif
         </section>
     </section>
-    @if ($user_wishlist->isNotEmpty())
-    <div class="add_all">
-        <a href="{{route('move all to cart')}}">ADD ALL TO CART</a>
-    </div>
-    @endif
 @endsection
 

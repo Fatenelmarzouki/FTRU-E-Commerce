@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Models\Country;
-use Illuminate\Http\Request;
-use Symfony\Component\HttpKernel\Event\ViewEvent;
+use App\Models\Visitor;
+use App\Events\PageVisited;
 
 class RedirectController extends Controller
 {
@@ -23,7 +22,8 @@ class RedirectController extends Controller
     //home
     public function Index()
     {
-
+        $count=Visitor::where('id',1)->first();
+        event(new PageVisited($count->count));
         return view('index');
     }
     //error
@@ -46,11 +46,6 @@ class RedirectController extends Controller
     {
         return view('pages.Profile.billing_info');
     }
-    //payment
-    public function payment()
-    {
-        return view('pages.Forms.payment');
-    }
     //user order history
     public function orderHistory()
     {
@@ -61,5 +56,5 @@ class RedirectController extends Controller
     {
         return view('pages.Forms.otp');
     }
-    
+
 }

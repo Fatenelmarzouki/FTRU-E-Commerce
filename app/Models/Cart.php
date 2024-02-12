@@ -17,14 +17,14 @@ class Cart extends Model
     public function cartUser()
     {
         return $this->belongsTo(User::class);
-    }    
+    }
     public function cartOrder()
     {
         return $this->hasMany(Order::class);
-    }    
+    }
     public function cartCItem()
     {
-        return $this->hasMany(CartItem::class);
+        return $this->hasMany(CartItem::class,'cart_id');
     }
 
 }

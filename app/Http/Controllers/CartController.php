@@ -18,7 +18,7 @@ class CartController extends Controller
     {
         $user = Auth::user();
         if ($user) {
-            $product = Product::findOrFail($request->product_id);
+            $product = Product::where('id',$request->product_id)->where('delete_status','No')->first();
             if ($product) {
                 $user_cart = Cart::where("user_id", $user->id)->first();
                 $user_cart_id = null;
@@ -35,14 +35,19 @@ class CartController extends Controller
                 $productSC = ProductColorSize::where('product_color_id', $color->id)->where('product_size_id', $size->id)->first();
                 if ($productSC) {
                     $qty = $request->quantity;
-                    if ($qty < $productSC->quantity) {
+                    if ($qty <= $productSC->quantity) {
                         $check = CartItem::where('product_color_size_id', $productSC->id)->first();
                         if ($check) {
                             return redirect()->back()->with('error', 'This product is already exist in your cart');
                         } else {
+                            if($product->main_discount != null){
+                                $price=$product->main_price - ($product->main_price *  ($product->main_discount/100));
+                            }else{
+                                $price = $product->main_price;
+                            }
                             $cart_item = CartItem::create([
                                 'quantity' => $qty,
-                                'price' => $product->main_price * $qty,
+                                'price' => $price * $qty,
                                 'cart_id' => $user_cart_id,
                                 'product_color_size_id' => $productSC->id
                             ]);
@@ -92,11 +97,29 @@ class CartController extends Controller
             return redirect()->route('Login')->with('error', 'You Must Login First');
         }
     }
+    public function deleteAllFromCart()
+    {
+        $user = Auth::user();
+        if ($user) {
+            if ($user->user_type == 1) {
+                $user_cart = $user->userCart;
+                $cart_items = CartItem::where('cart_id', $user_cart->id)->get();
+                foreach ($cart_items as $item) {
+                    $item->delete();
+                }
+                return redirect()->route('cart')->with('success', "you delete all products from your cart");
+            } else {
+                return redirect()->route('Register')->with('error', "Create your Account First");
+            }
+        } else {
+            return redirect()->route('Login')->with('error', 'You Must Login First');
+        }
+    }
     public function editCart($cartitem_id, $product_id)
     {
         $user = Auth::user();
         if ($user) {
-            $product = Product::findOrFail($product_id);
+            $product = Product::where('id',$product_id)->where('delete_status','No')->first();
             if ($product) {
                 $user_cart = $user->userCart;
                 $cart_item = CartItem::where('cart_id', $user_cart->id)->where('id', $cartitem_id)->first();
@@ -117,17 +140,22 @@ class CartController extends Controller
     {
         $cart_item = CartItem::where('id', $cartitem_id)->first();
         if ($cart_item) {
-            $product = Product::findOrFail($request->product_id);
+            $product = Product::where('id',$request->product_id)->where('delete_status','No')->first();
             if ($product) {
                 $color = ProductColor::where("color", $request->color)->where("product_id", $product->id)->first();
                 $size = ProductSize::where("size", $request->size)->where("product_id", $product->id)->first();
                 $productSC = ProductColorSize::where('product_color_id', $color->id)->where('product_size_id', $size->id)->first();
                 if ($productSC) {
                     $qty = $request->quantity;
-                    if ($qty < $productSC->quantity) {
+                    if ($product->main_discount != null) {
+                        $price = $product->main_price - ($product->main_price *  ($product->main_discount / 100));
+                    } else {
+                        $price = $product->main_price;
+                    }
+                    if ($qty <= $productSC->quantity) {
                         $cart_item->update([
                             'quantity' => $qty,
-                            'price' => $product->main_price * $qty,
+                            'price' => $price * $qty,
                             'product_color_size_id' => $productSC->id
                         ]);
                         return redirect()->route('cart');
