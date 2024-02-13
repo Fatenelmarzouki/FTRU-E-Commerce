@@ -81,7 +81,7 @@ git clone https://github.com/Fatenelmarzouki/FTRU-E-Commerce.git && cd FTRU-E-Co
 **Back-End:** PHP, Laravel
 
 ## License
-The Laravel framework is open-sourced software licensed under the MIT license.
+The Laravel framework is open-sourced software licensed under the `MIT license`.
 
 
 
