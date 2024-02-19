@@ -26,7 +26,7 @@ git clone https://github.com/Fatenelmarzouki/FTRU-E-Commerce.git && cd FTRU-E-Co
 4. Run `php artisan key:generate`
 5. Run `php artisan serve`
 6. Run `php artisan migrate`
-7. Run `php artisan database:seed`
+7. Run `php artisan db:seed`
 8. Run `php artisan storage:link`
 9. Run `php artisan schedule:run`
 10. You can access the Home page from `http://127.0.0.1:8000/FTRU/Home`
