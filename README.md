@@ -21,17 +21,16 @@ git clone https://github.com/Fatenelmarzouki/FTRU-E-Commerce.git && cd FTRU-E-Co
 
 ## Usage
 1. Create a new database
-2. Rename or copy `.env.example` file to `.env`
-3. Set your configuration settings in your `.env` file
-4. Run `php artisan key:generate`
-5. Run `php artisan serve`
-6. Run `php artisan migrate`
-7. Run `php artisan db:seed`
-8. Run `php artisan storage:link`
-9. Run `php artisan schedule:run`
-10. You can access the Home page from `http://127.0.0.1:8000/FTRU/Home`
-11. Credentials to access admin panel (email: `admin@FTRU.com`, password: `12345789`)
-12. You can access the admin page from `http://127.0.0.1:8000/Dashboard`
+2. Import the database file `database.sql` to phpMyAdmin from `E-commerce DB Folder`
+3. Rename or copy `.env.example` file to `.env`
+4. Set your configuration settings in your `.env` file
+5. Run `php artisan key:generate`
+6. Run `php artisan serve`
+7. Run `php artisan storage:link`
+8. Run `php artisan schedule:run`
+9. You can access the Home page from `http://127.0.0.1:8000/FTRU/Home`
+10. Credentials to access admin panel (email: `admin@FTRU.com`, password: `12345789`)
+11. You can access the admin page from `http://127.0.0.1:8000/Dashboard`
 
 ## Features
 * ### User Features
